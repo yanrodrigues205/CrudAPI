@@ -56,9 +56,9 @@ class UserService extends UserModel
     public async alterUserByID(id_user: string, dataUser: any): Promise<Object> 
     {
         let verifyEmail: any = true;
-        if(dataUser.passwordg)
+        if(dataUser.password)
         {
-            let cryptPassword = await this.cryptPassword(dataUser.password);
+            let cryptPassword = "qefjkhuygryuhjabsdicgjkmn8uijkhnefoyij"//await this.cryptPassword(dataUser.password);
             dataUser.password = cryptPassword;
         }
 

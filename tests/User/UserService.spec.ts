@@ -77,7 +77,7 @@ describe("User Service", () => {
 
     });
 
-    it("success - call private methods cryptPassword and emailIsUnique", async()=>{
+    it("success - call private method 'emailIsUnique' from UserService in public method 'alterUserByID'", async()=>{
         const userS: UserService = new UserService();
         let email: string = await randomString(10) + "@hotmail.test";
         let pass: string = await randomString(9);
@@ -93,7 +93,25 @@ describe("User Service", () => {
         let alterUser: any = await userS.alterUserByID("idteste-idteste-idteste", userAlterOBJ);
 
         expect(spyAlterUserByID).toHaveBeenCalled();
-    })
+    });
+
+    it("success - call private method 'criptPassword' from UserService in  public method 'alterUserByID'", async()=>{
+        const userS: UserService = new UserService();
+        let pass: string = await randomString(9);
+        
+        let userAlterOBJ: object ={
+            password: pass
+        }
+
+        //@ts-ignore
+        const spyCryptPassword: any = jest.spyOn(UserService.prototype, "cryptPassword");
+
+        let alterUser: any = await userS.alterUserByID("idteste-idteste-idteste", userAlterOBJ);
+
+        expect(spyCryptPassword).toHaveBeenCalled();
+    });
+
+
 
 
 });
