@@ -93,11 +93,12 @@ describe("User Service", () => {
         let alterUser: any = await userS.alterUserByID("idteste-idteste-idteste", userAlterOBJ);
 
         expect(spyAlterUserByID).toHaveBeenCalled();
+        spyAlterUserByID.mockRestore();
     });
 
-    it("success - call private method 'criptPassword' from UserService in  public method 'alterUserByID'", async()=>{
+    it("success - call private method 'cryptPassword' from UserService in  public method 'alterUserByID'", async()=>{
         const userS: UserService = new UserService();
-        let pass: string = await randomString(9);
+        let pass: string = await randomString(13);
         
         let userAlterOBJ: object ={
             password: pass
@@ -106,12 +107,10 @@ describe("User Service", () => {
         //@ts-ignore
         const spyCryptPassword: any = jest.spyOn(UserService.prototype, "cryptPassword");
 
-        let alterUser: any = await userS.alterUserByID("idteste-idteste-idteste", userAlterOBJ);
+        await userS.alterUserByID("idteste-idteste-idteste", userAlterOBJ);
 
         expect(spyCryptPassword).toHaveBeenCalled();
+        spyCryptPassword.mockRestore();
     });
-
-
-
 
 });
